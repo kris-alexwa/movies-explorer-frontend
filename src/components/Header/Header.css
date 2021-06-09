@@ -1,0 +1,52 @@
+.header {
+    background-color: #073042;
+    display: flex;
+    justify-content: center;
+}
+
+.header__logo {
+    cursor: pointer;
+}
+
+.header__container {
+    flex-grow: 1;
+    max-width: 1140px;
+    margin-left: 70px;
+    margin-right: 70px;
+    display: flex;
+    margin-top: 18px;
+    justify-content: space-between;
+}
+
+.header__link {
+    font-size: 12px;
+    line-height: 16px;
+    font-family: 'Inter Medium';
+    cursor: pointer;
+    height: 24px;
+    transition: opacity 0.5s ease;
+    text-decoration: none;
+    padding-top: 8px;
+}
+
+.header__links-container {
+    display: flex;
+    align-items: center;
+}
+
+.header__link_register {
+    background-color: transparent;
+    color: #fff;
+    margin-right: 30px;
+}
+
+.header__link_login {
+    background-color: #2BE080;
+    border-radius: 3px;
+    width: 76px;
+    color: #000;
+}
+
+.header__link:hover {
+    opacity: 0.7;
+}
