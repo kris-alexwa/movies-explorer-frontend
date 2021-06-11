@@ -2,7 +2,8 @@ import React from 'react';
 import './Main.css';
 import { Link } from 'react-router-dom';
 import Header from '../Header/Header';
-import ImageLead from '../../images/landing-logo.png';
+import Promo from './Promo/Promo';
+import AboutProject from './AboutProject/AboutProject';
 
 function Main() {
     return (
@@ -14,18 +15,8 @@ function Main() {
                 </nav>
             </Header>
             <main className="content">
-                <section className="lead">
-                    <div className="lead__container">
-                        <h1 className="lead__text lead__text_title">Учебный проект студента факультета Веб&#8209;разработки.</h1>
-                        <p className="lead__text lead__text_subtitle">Листайте ниже, чтобы узнать больше про этот проект и его создателя.</p>
-                    </div>
-                    <img className="lead__image" src={ImageLead} alt="Лого лендинг" />
-                    <button className="lead__btn-see-more">Узнать больше</button>
-                </section>
-
-                <section className="about-project">
-                    
-                </section>
+                <Promo />
+                <AboutProject />
             </main>
         </>
     )

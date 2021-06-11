@@ -1,8 +1,17 @@
-.App {
-  text-align: center;
+.body {
+  -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+}
+
+.page {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin: auto;
 }
 /* 
 .App-logo {

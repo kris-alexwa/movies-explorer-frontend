@@ -2,6 +2,7 @@
     background-color: #073042;
     display: flex;
     justify-content: center;
+    width: 100%;
 }
 
 .header__logo {
@@ -9,10 +10,10 @@
 }
 
 .header__container {
-    flex-grow: 1;
     max-width: 1140px;
-    margin-left: 70px;
-    margin-right: 70px;
+    padding-left: 70px;
+    padding-right: 70px;
+    flex-grow: 1;
     display: flex;
     margin-top: 18px;
     justify-content: space-between;
@@ -23,7 +24,8 @@
     line-height: 16px;
     font-family: 'Inter Medium';
     cursor: pointer;
-    height: 24px;
+    height: 32px;
+    box-sizing: border-box;
     transition: opacity 0.5s ease;
     text-decoration: none;
     padding-top: 8px;
@@ -45,6 +47,7 @@
     border-radius: 3px;
     width: 76px;
     color: #000;
+    text-align: center;
 }
 
 .header__link:hover {

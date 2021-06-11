@@ -12,13 +12,14 @@ import Footer from '../Footer/Footer';
 
 function App() {
   return (
-    <div className="App">
-      {/* <Header /> */}
-      <Switch>
-        <Route exact path="/">
-          <Main />
-        </Route>
-        {/* <Route path="/movies">
+    <body className="body">
+      <div className="page">
+        {/* <Header /> */}
+        <Switch>
+          <Route exact path="/">
+            <Main />
+          </Route>
+          {/* <Route path="/movies">
           <Movies />
         </Route>
         <Route path="/saved-movies">
@@ -33,9 +34,10 @@ function App() {
         <Route path="/signup">
           <Register />
         </Route> */}
-      </Switch>
-      {/* /* <Footer /> */}
-    </div>
+        </Switch>
+        {/* /* <Footer /> */}
+      </div>
+    </body>
   );
 }
 
