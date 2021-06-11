@@ -1,6 +1,7 @@
 import React from 'react';
 import ImageLead from '../../../images/landing-logo.png';
 import './Promo.css';
+import { Link, animateScroll as scroll } from "react-scroll";
 
 function Promo() {
     return (
@@ -12,7 +13,9 @@ function Promo() {
                         <p className="promo__text promo__text_subtitle">Листайте ниже, чтобы узнать больше про этот проект и его создателя.</p>
                     </div>
                     <img className="promo__image" src={ImageLead} alt="Лого лендинг" />
-                    <button className="promo__btn-see-more">Узнать больше</button>
+                    <Link to="about-me" smooth={true} duration={500}>
+                        <button className="promo__btn-see-more">Узнать больше</button>
+                    </Link>
                 </div>
             </section>
         </>

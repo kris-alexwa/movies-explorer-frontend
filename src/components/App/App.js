@@ -13,7 +13,6 @@ function App() {
   return (
     <body className="body">
       <div className="page">
-        {/* <Header /> */}
         <Switch>
           <Route exact path="/">
             <Main />
@@ -34,7 +33,6 @@ function App() {
           <Register />
         </Route> */}
         </Switch>
-        {/* <Footer /> */}
       </div>
     </body>
   );
