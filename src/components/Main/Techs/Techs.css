@@ -100,3 +100,31 @@
         height: 57px;
     }
 }
+
+@media screen and (max-width: 767px) {
+    .techs__title {
+        margin-top: 70px;
+        font-size: 18px;
+    }
+
+    .techs__container {
+        max-width: 284px;
+    }
+
+    .techs__subtitle {
+        font-size: 30px;
+        margin-bottom: 24px;
+    }
+
+    .techs__description {
+        font-size: 11px;
+        line-height: 16px;
+        margin-bottom: 50px;
+    }
+
+    .techs__list {
+        grid-template-columns: repeat(2, auto);
+        row-gap: 10px;
+        margin-bottom: 70px;
+    }
+}

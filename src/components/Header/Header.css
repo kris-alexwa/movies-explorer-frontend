@@ -21,6 +21,7 @@
     font-size: 12px;
     line-height: 16px;
     cursor: pointer;
+    width: 76px;
     height: 32px;
     box-sizing: border-box;
     transition: opacity 0.5s ease;
@@ -42,9 +43,10 @@
 .header__link_login {
     background-color: #2BE080;
     border-radius: 3px;
-    width: 76px;
+    /* width: 76px; */
     color: #000;
     text-align: center;
+    padding-top: 8px;
 }
 
 .header__link:hover {
@@ -54,5 +56,26 @@
 @media screen and (max-width: 1023px) {
     .header__container {
         max-width: 708px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .header__container {
+        max-width: 292px;
+    }
+
+    .header__link {
+        font-size: 10px;
+        height: 26px;
+        padding-top: 5px;
+    }
+
+    .header__link_register {
+        margin-right: 14px;
+        width: 64px;
+    }
+
+    .header__link_login {
+        width: 54px;
     }
 }

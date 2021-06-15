@@ -20,6 +20,7 @@
     grid-row-start: 1;
     grid-row-end: 3;
     margin-left: 190px;
+    max-width: 310px;
 }
 
 .promo__btn-see-more {
@@ -107,5 +108,30 @@
     .promo__link {
         display: flex;
         justify-content: center;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .promo__container {
+        margin-top: 88px;
+        margin-bottom: 30px;
+    }
+
+    .promo__image {
+        max-width: 210px;
+    }
+
+    .promo__text-wrapper {
+        margin-top: 44px;
+    }
+
+    .promo__text_title {
+        font-size: 30px;
+        line-height: 38px;
+        margin-bottom: 24px;
+    }
+
+    .promo__btn-see-more {
+        margin-top: 80px;
     }
 }
