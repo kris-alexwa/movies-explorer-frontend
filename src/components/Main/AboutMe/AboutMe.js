@@ -15,8 +15,8 @@ function AboutMe() {
                     <p className="about-me__description">Родилась и до недавнего времени жила в Уфе. Совсем недавно мы с мужем переехали в Санкт-Петербург. Закончила юридический факультет Иститута Права БашГУ. Работала юрисконсультом в крупной компании, но около года назад решила начать изучать программирование и стать веб-разработчиком. </p>
                     <img className="about-me__photo" src={PhotoStudent} alt="Фото студента" ></img>
                     <ul className="about-me__list">
-                        <li className="about-me__list-item"><a href="https://github.com/kris-alexwa" target="_blank" className="about-me__link">Github</a></li>
-                        <li className="about-me__list-item"><a href="https://vk.com/kris_sherlocked" target="_blank" className="about-me__link">ВКонтакте</a></li>
+                        <li className="about-me__list-item"><a href="https://github.com/kris-alexwa" target="_blank" rel="noreferrer" className="about-me__link">Github</a></li>
+                        <li className="about-me__list-item"><a href="https://vk.com/kris_sherlocked" target="_blank" rel="noreferrer" className="about-me__link">ВКонтакте</a></li>
                     </ul>
                 </div>
             </div>

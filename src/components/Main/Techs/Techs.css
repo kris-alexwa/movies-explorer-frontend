@@ -1,5 +1,4 @@
 .techs {
-    font-family: 'Inter Regular';
     width: 100%;
     background-color: #F5F5F5;
 }
@@ -48,6 +47,7 @@
     grid-template-columns: repeat(7, auto);
     column-gap: 10px;
     padding: 0;
+    margin-top: 0;
     list-style: none;
     margin-bottom: 100px;
 }
@@ -65,4 +65,38 @@
 
 .techs__list-item_uppercase {
     text-transform: uppercase;
+}
+
+@media screen and (max-width: 1023px) {
+    .techs__container {
+        max-width: 668px;
+    }
+
+    .techs__title {
+        margin-top: 90px;
+    }
+
+    .techs__description {
+        font-size: 12px;
+        line-height: 18px;
+        margin-bottom: 83px;
+    }
+
+    .techs__wrapper {
+        padding-top: 90px;
+    }
+
+    .techs__subtitle {
+        margin-bottom: 22px;
+    }
+
+    .techs__list {
+        margin-bottom: 90px;
+    }
+
+    .techs__list-item {
+        font-size: 12px;
+        width: 84px;
+        height: 57px;
+    }
 }

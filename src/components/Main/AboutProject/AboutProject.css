@@ -11,7 +11,6 @@
 .intro__title {
     margin-top: 0;
     margin-bottom: 23px;
-    font-family: 'Inter Regular';
     font-style: normal;
     font-size: 22px;
 }
@@ -37,7 +36,6 @@
 }
 
 .intro__title-paragraph {
-    font-family: 'Inter Regular';
     font-weight: 550;
     font-size: 20px;
     line-height: 24px;
@@ -46,7 +44,6 @@
 }
 
 .intro__paragraph {
-    font-family: 'Inter Regular';
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;
@@ -54,10 +51,9 @@
 }
 
 .progress-bar {
-    font-family: 'Inter Regular';
     font-size: 14px;
     display: grid;
-    grid-template-columns: minmax(228px, 100px) repeat( auto-fill, minmax(auto, 1fr) );;
+    grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(2, auto);
     margin-bottom: 110px;
     width: 100%;
@@ -95,4 +91,32 @@
 .progress-bar__secondary-subtitle {
     grid-column-start: 2;
     grid-column-end: 6;
+}
+
+@media screen and (max-width: 1023px) {
+    .intro {
+        margin-top: 90px;
+    }
+
+    .intro__container {
+        max-width: 668px;
+    }
+
+    .intro__paragraph {
+        font-size: 12px;
+        line-height: 18px;
+    }
+
+    .intro__description-wrapper {
+        margin-bottom: 93px;
+        padding-top: 63px;
+    }
+
+    .progress-bar {
+        margin-bottom: 90px;
+    }
+
+    .progress-bar__part {
+        height: 36px;
+    }
 }

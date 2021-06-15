@@ -13,7 +13,7 @@ function Promo() {
                         <p className="promo__text promo__text_subtitle">Листайте ниже, чтобы узнать больше про этот проект и его создателя.</p>
                     </div>
                     <img className="promo__image" src={ImageLead} alt="Лого лендинг" />
-                    <Link to="about-me" smooth={true} duration={500}>
+                    <Link to="about-me" smooth={true} duration={500} className="promo__link">
                         <button className="promo__btn-see-more">Узнать больше</button>
                     </Link>
                 </div>
