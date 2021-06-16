@@ -10,7 +10,7 @@ function Portfolio() {
                     <h2 className="portfolio__title">Портфолио</h2>
                     <ul className="portfolio__list">
                         <li className="portfolio__list-item">
-                            <a href="#" target="_blank" rel="noreferrer" className="portfolio__link">
+                            <a href="https://kris-alexwa.github.io/how-to-learn/" target="_blank" rel="noreferrer" className="portfolio__link">
                                 <p className="portfolio__link-title">Статичный сайт</p>
                                 <img className="portfolio__link-icon" src={ArrowIcon} alt="Иконка стрелка"></img>
                             </a>
