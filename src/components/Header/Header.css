@@ -1,8 +1,11 @@
 .header {
-    background-color: #073042;
     display: flex;
     justify-content: center;
     width: 100%;
+}
+
+.header__dark-theme {
+    background-color: #073042;
 }
 
 .header__logo {
@@ -18,15 +21,10 @@
 }
 
 .header__link {
-    font-size: 12px;
-    line-height: 16px;
     cursor: pointer;
-    width: 76px;
-    height: 32px;
     box-sizing: border-box;
     transition: opacity 0.5s ease;
     text-decoration: none;
-    padding-top: 8px;
 }
 
 .header__links-container {
@@ -34,19 +32,27 @@
     align-items: center;
 }
 
-.header__link_register {
+.header__link-auth {
+    font-size: 12px;
+    line-height: 16px;
+    padding-top: 8px;
+    min-width: 76px;
+    min-height: 32px;
+}
+
+.header__link-auth_register {
     background-color: transparent;
     color: #fff;
     margin-right: 30px;
 }
 
-.header__link_login {
+.header__link-auth_login {
     background-color: #2BE080;
     border-radius: 3px;
-    /* width: 76px; */
     color: #000;
     text-align: center;
     padding-top: 8px;
+    
 }
 
 .header__link:hover {

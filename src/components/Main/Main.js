@@ -12,10 +12,10 @@ import Footer from '../Footer/Footer';
 function Main() {
     return (
         <>
-            <Header>
+            <Header dark={true}>
                 <nav class="header__links-container">
-                    <Link to="/signup" className="header__link header__link_register">Регистрация</Link>
-                    <Link to="/signin" className="header__link header__link_login">Войти</Link>
+                    <Link to="/signup" className="header__link header__link-auth header__link-auth_register">Регистрация</Link>
+                    <Link to="/signin" className="header__link header__link-auth header__link-auth_login">Войти</Link>
                 </nav>
             </Header>
             <main className="content">

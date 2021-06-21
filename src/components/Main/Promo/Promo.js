@@ -1,7 +1,7 @@
 import React from 'react';
 import ImageLead from '../../../images/landing-logo.png';
 import './Promo.css';
-import { Link, animateScroll as scroll } from "react-scroll";
+import { Link} from "react-scroll";
 
 function Promo() {
     return (
