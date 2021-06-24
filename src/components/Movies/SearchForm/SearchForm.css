@@ -1,24 +1,26 @@
 .search-form {
-    margin-top: 70px;
+    margin: 70px auto 0 auto;
     width: 100%;
 }
 
 .search-form__wrapper {
     display: flex;
     justify-content: space-between;
-    padding: 16px 30px 16px 30px;
     max-width: 1140px;
-    background-color: #F9F9F9;
     border-radius: 9px;
     margin: auto;
     box-sizing: border-box;
+    background-color: #F9F9F9;
+    margin: 0 70px 0 70px;
 }
 
 .search-form__container {
     width: 80%;
-    margin-right: 30px;
     display: flex;
     justify-content: space-between;
+    padding: 16px 30px 16px 30px;
+    margin: auto;
+    box-sizing: border-box;
 }
 
 .search-form__input {
@@ -32,28 +34,28 @@
 
 .search-form__btn {
     background-color: #3456F3;
-    width: 80px;
+    min-width: 80px;
     height: 34px;
     border: none;
     border-radius: 48px;
     padding: 0;
     cursor: pointer;
     align-self: flex-end;
+    transition: opacity 0.5s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.search-form__icon {
-
-}
-
-.search-form__icon_white-theme {
-    
+.search-form__btn:hover {
+    opacity: 0.8;
 }
 
 .checkbox {
     display: flex;
     border-left: 1px solid #E8E8E8;
-    padding-left: 29px;
     align-items: center;
+    padding: 16px 30px 16px 29px;
 }
 
 .checkbox__title {
@@ -84,9 +86,61 @@
     height: 16px;
     background-color: #F5F5F5;
     border-radius: 50%;
+    transition: 0.5s ease;
 }
 
 .checkbox__btn:checked::after {
     background-color: #2BE080;
     left: 18px;
+    transition: 0.5s ease;
+}
+
+@media screen and (max-width: 1023px) {
+    .search-form__wrapper {
+        /* max-width: 708px; */
+        margin: 0 30px 0 30px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .search-form {
+        margin: 98px auto 0 auto;
+    }
+
+    .search-form__wrapper {
+        flex-direction: column;
+        background-color: transparent;
+        margin: 0 10px 0 10px;
+    }
+
+    .search-form__icon_visibility {
+        display: none;
+    }
+
+    .search-form__container {
+        padding: 19px;
+        border-radius: 9px;
+        background-color: #F9F9F9;
+        width: 100%;
+    }
+
+    .search-form__input {
+        font-size: 14px;
+        margin: 0;
+    }
+
+    .checkbox {
+        background-color: transparent;
+        border: none;
+        padding: 0;
+        margin: 45px auto 0 auto;
+    }
+
+    .checkbox__btn {
+        margin-right: 13px;
+    }
+    .checkbox__title {
+        font-size: 11px;
+    }
+    
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import ImageLead from '../../../images/landing-logo.png';
+import ImageLead from '../../../images/logo/landing-logo.png';
 import './Promo.css';
 import { Link} from "react-scroll";
 

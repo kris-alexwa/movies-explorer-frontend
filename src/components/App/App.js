@@ -3,15 +3,14 @@ import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
-// import SavedMovies from '../SavedMovies/SavedMovies';
-// import Profile from '../Profile/Profile';
+import SavedMovies from '../SavedMovies/SavedMovies';
+import Profile from '../Profile/Profile';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
-// import Footer from '../Footer/Footer';
 
 function App() {
   return (
-    <body className="body">
+    <div className="body">
       <div className="page">
         <Switch>
           <Route exact path="/">
@@ -26,17 +25,15 @@ function App() {
           <Route path="/movies">
             <Movies />
           </Route>
-          {/* 
-        <Route path="/saved-movies">
-          <SavedMovies />
-        </Route>
-        <Route path="/profile">
-          <Profile />
-        </Route>
-         */}
+          <Route path="/saved-movies">
+            <SavedMovies />
+          </Route>
+          <Route path="/profile">
+            <Profile />
+          </Route>
         </Switch>
       </div>
-    </body>
+    </div>
   );
 }
 

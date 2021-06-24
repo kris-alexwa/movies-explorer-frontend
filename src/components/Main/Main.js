@@ -1,7 +1,6 @@
 import React from 'react';
 import './Main.css';
-import { Link } from 'react-router-dom';
-import Header from '../Header/Header';
+import HeaderMain from '../Header/HeaderMain/HeaderMain';
 import Promo from './Promo/Promo';
 import AboutProject from './AboutProject/AboutProject';
 import Techs from './Techs/Techs';
@@ -12,12 +11,7 @@ import Footer from '../Footer/Footer';
 function Main() {
     return (
         <>
-            <Header dark={true}>
-                <nav class="header__links-container">
-                    <Link to="/signup" className="header__link header__link-auth header__link-auth_register">Регистрация</Link>
-                    <Link to="/signin" className="header__link header__link-auth header__link-auth_login">Войти</Link>
-                </nav>
-            </Header>
+            <HeaderMain />
             <main className="content">
                 <Promo />
                 <AboutProject />

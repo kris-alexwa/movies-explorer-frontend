@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Auth.css';
-import logoHeader from '../../images/logo.svg';
+import logoHeader from '../../images/logo/logo.svg';
 
 function Auth(props) {
     return (
@@ -13,7 +13,7 @@ function Auth(props) {
                     <div className="auth__form-container">
                         {props.children}
                     </div>
-                    <button className="auth__btn">{props.button}</button>
+                    <button className="form__btn">{props.button}</button>
                 </form>
                 <div className="auth__wrapper">
                     <p className="auth__secondary-text">{props.text}</p>
