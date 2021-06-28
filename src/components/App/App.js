@@ -25,8 +25,10 @@ function App() {
   }
 
   React.useEffect(() => {
+    let timeoutId = null;
     window.addEventListener('resize', function () {
-      setWidthMode(calcWidthMode())
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => setWidthMode(calcWidthMode()), 150)
     })
   })
 
