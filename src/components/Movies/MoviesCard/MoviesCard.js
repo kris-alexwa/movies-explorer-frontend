@@ -14,14 +14,14 @@ function MoviesCard(props) {
 
     return (
         <>
-            <div className={movieCardClassName}>
-                <img className="movie-card__image" src={props.imageMovie} alt="Обложка фильма"></img>
+            <li className={movieCardClassName}>
+                <img className="movie-card__image" src={'https://api.nomoreparties.co' + props.imageMovie} alt="Обложка фильма"></img>
                 <div className="movie-card__wrapper">
                     <h2 className="movie-card__title">{props.titleMovie}</h2>
                     {button}
                     <p className="movie-card__timing">{props.timingMovie}</p>
                 </div>
-            </div>
+            </li>
         </>
     )
 }
