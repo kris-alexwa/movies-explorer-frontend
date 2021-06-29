@@ -7,29 +7,36 @@ import HeaderAuthUser from '../Header/HeaderAuthUser/HeaderAuthUser';
 import SearchForm from './SearchForm/SearchForm';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
-import {calcStartAmount} from '../../utils/calcStartAmount';
+import { calcStartAmount } from '../../utils/calcStartAmount';
+
+const emptyArray = [];
 
 function Movies(props) {
     const [moviesCards, setMoviesCards] = React.useState([])
+    const [value, setValue] = React.useState('');
     const [amount, setAmount] = React.useState(calcStartAmount(props.widthMode));
     const [btnState, setBtnState] = React.useState(true)
 
-    React.useEffect(() => {
-        moviesApi.getMoviesCards()
-          .then(res => setMoviesCards(res.slice(0, 20)))
-          .catch(err => {
-            console.log(err)
-            alert('Не удалось загрузить карточки')
-          })
-      }, [])
+    const filteredMovies = value.length > 0 ? moviesCards.filter(movie => {
+        return movie.nameRU.toLowerCase().includes(value.toLowerCase())
+    }) : emptyArray;
 
     React.useEffect(() => {
-        if (moviesCards.length <= amount) {
+        moviesApi.getMoviesCards()
+            .then(res => setMoviesCards(res.slice(0, 20)))
+            .catch(err => {
+                console.log(err)
+                alert('Не удалось загрузить карточки')
+            })
+    }, [])
+
+    React.useEffect(() => {
+        if (filteredMovies.length <= amount) {
             setBtnState(false)
         } else {
-            setBtnState(true)            
+            setBtnState(true)
         }
-    }, [moviesCards, amount])
+    }, [filteredMovies, amount])
 
     function handleBtnClick() {
         if (props.widthMode === 'desktop') {
@@ -41,11 +48,16 @@ function Movies(props) {
         }
     }
 
+    function handleInputChange(event) {
+        setValue(event.target.value);
+    }
+
+
     return (
         <>
-            <HeaderAuthUser selectedLink={"movies"} classNameSelected={'header__link_movies'}/>
-            <SearchForm />
-            <MoviesCardList moviesCards={moviesCards} amount={amount} />
+            <HeaderAuthUser selectedLink={"movies"} classNameSelected={'header__link_movies'} />
+            <SearchForm handleChange={handleInputChange}/>
+            <MoviesCardList moviesCards={filteredMovies} amount={amount} />
             {btnState && <button className='movies-card-list__btn' onClick={handleBtnClick}>Ещё</button>}
             <Footer />
         </>

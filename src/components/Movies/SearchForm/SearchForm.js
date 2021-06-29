@@ -3,14 +3,14 @@ import './SearchForm.css';
 import searchIconGray from '../../../images/icons/search-icon.svg';
 import searchIconWhite from '../../../images/icons/search-icon-white.svg';
 
-function SearchForm() {
+function SearchForm(props) {
     return (
         <>
             <form className="search-form">
                 <div className="search-form__wrapper">
                     <div className="search-form__container">
                             <img className="search-form__icon search-form__icon_visibility" src={searchIconGray} alt="Иконка поиска"></img>
-                            <input className="search-form__input" placeholder="Фильм"></input>
+                            <input className="search-form__input" placeholder="Фильм" onChange={props.handleChange}></input>
                         <button className="search-form__btn">
                             <img className="search-form__icon search-form__icon_white-theme" src={searchIconWhite} alt="Иконка поиска"></img>
                         </button>
