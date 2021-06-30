@@ -13,21 +13,28 @@ const emptyArray = [];
 
 function Movies(props) {
     const [moviesCards, setMoviesCards] = React.useState([])
-    const [value, setValue] = React.useState('');
+    const [filterText, setFilterText] = React.useState('');
     const [amount, setAmount] = React.useState(calcStartAmount(props.widthMode));
     const [btnState, setBtnState] = React.useState(true)
-
-    const filteredMovies = value.length > 0 ? moviesCards.filter(movie => {
-        return movie.nameRU.toLowerCase().includes(value.toLowerCase())
+    console.log(moviesCards)
+    const filteredMovies = filterText.length > 0 && moviesCards != null ? moviesCards.filter(movie => {
+        return movie.nameRU.toLowerCase().includes(filterText.toLowerCase())
     }) : emptyArray;
 
     React.useEffect(() => {
-        moviesApi.getMoviesCards()
-            .then(res => setMoviesCards(res.slice(0, 20)))
+        if (localStorage.getItem('moviesCards')) {
+           setMoviesCards(JSON.parse(localStorage.getItem('moviesCards')))
+        } else {
+            moviesApi.getMoviesCards()
+            .then(res => {
+                localStorage.setItem('moviesCards', JSON.stringify(res))
+                setMoviesCards(res)
+            })
             .catch(err => {
                 console.log(err)
                 alert('Не удалось загрузить карточки')
             })
+        }
     }, [])
 
     React.useEffect(() => {
@@ -48,15 +55,10 @@ function Movies(props) {
         }
     }
 
-    function handleInputChange(event) {
-        setValue(event.target.value);
-    }
-
-
     return (
         <>
             <HeaderAuthUser selectedLink={"movies"} classNameSelected={'header__link_movies'} />
-            <SearchForm handleChange={handleInputChange}/>
+            <SearchForm setFilterText={setFilterText} />
             <MoviesCardList moviesCards={filteredMovies} amount={amount} />
             {btnState && <button className='movies-card-list__btn' onClick={handleBtnClick}>Ещё</button>}
             <Footer />
