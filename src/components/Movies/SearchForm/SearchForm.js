@@ -11,8 +11,8 @@ function SearchForm(props) {
     }
 
     function handleSubmit(event) {
+        props.handleSubmit(value);
         event.preventDefault();
-        props.setFilterText(value);
     }
 
     return (
