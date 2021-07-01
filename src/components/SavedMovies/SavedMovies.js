@@ -2,7 +2,6 @@ import React from 'react';
 import './SavedMovies.css';
 
 import MoviesCardList from '../Movies/MoviesCardList/MoviesCardList';
-import MoviesCard from '../Movies/MoviesCard/MoviesCard';
 import HeaderAuthUser from '../Header/HeaderAuthUser/HeaderAuthUser';
 import SearchForm from '../Movies/SearchForm/SearchForm';
 import Footer from '../Footer/Footer';

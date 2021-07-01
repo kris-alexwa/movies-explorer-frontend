@@ -70,10 +70,12 @@ function Movies(props) {
 
     function handleSavedMoviesBtn(movieCard) {
         mainApi.savedMovieCard(movieCard)
-            .then((movieCard) => console.log(movieCard))
-            .catch((err) => console.log(err))
+            .then()
+            .catch((err) => {
+                alert('Данный фильм уже был добавлен в избранное')
+                console.log(err)
+            })
     }
-
 
     return (
         <>
