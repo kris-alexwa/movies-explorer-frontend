@@ -7,11 +7,13 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
+import { mainApi } from '../../utils/MainApi';
 // import ErrorPage from '../ErrorPage/ErrorPage';
 
 function App() {
   // Отрисовка карточек на странице
   const [widthMode, setWidthMode] = React.useState(calcWidthMode());
+
 
   function calcWidthMode() {
     const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
