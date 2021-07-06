@@ -35,7 +35,6 @@
 .auth__form-item {
     display: flex;
     flex-direction: column;
-    margin-bottom: 24px;
 }
 
 .auth__form-item:last-of-type {
@@ -62,6 +61,11 @@
 
 .form__btn:hover {
     opacity: 0.8;
+}
+
+.form__btn:disabled {
+    opacity: 0.8;
+    cursor: default;
 }
 
 .auth__wrapper {
@@ -95,7 +99,9 @@
     font-size: 10px;
     line-height: 12px;
     margin-top: 6px;
+    margin-bottom: 6px;
     max-width: 396px;
+    height: 24px;
     word-wrap: break-word;
 }
 

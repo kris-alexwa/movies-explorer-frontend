@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, useHistory } from 'react-router-dom';
 import './App.css';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -7,6 +7,7 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
+import * as userAuth from '../../utils/userAuth';
 // import ErrorPage from '../ErrorPage/ErrorPage';
 
 function App() {
@@ -33,6 +34,14 @@ function App() {
     })
   })
 
+  const history = useHistory();
+
+  function handleRegister(name, email, password) {
+    return userAuth.register(name, email, password).then(() => {
+      history.push('/movies')
+    })
+  }
+
 
   return (
     <div className="body">
@@ -45,7 +54,7 @@ function App() {
             <Login />
           </Route>
           <Route path="/signup">
-            <Register />
+            <Register onRegister={handleRegister} />
           </Route>
           <Route path="/movies">
             <Movies widthMode={widthMode} />
