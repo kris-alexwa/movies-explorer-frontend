@@ -37,6 +37,25 @@ export default class MainApi {
             .then(this._checkResponse)
     }
 
+    getUserInfo(token) {
+        return fetch(this.url + "/users/me", {
+                headers: {...this.headers, 'Authorization': `Bearer ${token}` }
+            })
+            .then(this._checkResponse)
+    }
+
+    updateUserInfo(data, token) {
+        return fetch(this.url + "/users/me", {
+                method: 'PATCH',
+                headers: {...this.headers, 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                body: JSON.stringify({
+                    name: data.name,
+                    email: data.email
+                })
+            })
+            .then(this._checkResponse)
+    }
+
 }
 
 // export const mainApi = new MainApi({url: 'https://api.movie-kris.nomoredomains.club'});

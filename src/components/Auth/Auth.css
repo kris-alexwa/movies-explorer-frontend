@@ -64,8 +64,9 @@
 }
 
 .form__btn:disabled {
-    opacity: 0.8;
     cursor: default;
+    background-color: #F8F8F8;
+    color:#C2C2C2;
 }
 
 .auth__wrapper {
@@ -107,6 +108,12 @@
 
 .auth__form-input_invalid {
     color: #FF3055;
+}
+
+.auth__error-message {
+    color: #FF004C;
+    font-size: 11px;
+    margin: 0 auto 20px auto;
 }
 
 @media screen and (max-width: 767px) {

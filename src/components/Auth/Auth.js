@@ -14,11 +14,7 @@ function Auth(props) {
     function handleFormChange() {
         validate()
     }
-
-    // function handleSubmit(event) {
-    //     event.preventDefault();
-    // }
-
+    
     return (
         <>
             <div className="auth">
@@ -28,6 +24,7 @@ function Auth(props) {
                     <div className="auth__form-container">
                         {props.children}
                     </div>
+                    <span className="auth__error-message">{props.errorText}</span>
                     <button type="submit" className="form__btn" disabled={!formValid}>{props.button}</button>
                 </form>
                 <div className="auth__wrapper">
