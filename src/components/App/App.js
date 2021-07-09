@@ -11,7 +11,7 @@ import ProtectedRoute from '../ProtectedRoute';
 import * as userAuth from '../../utils/userAuth';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { mainApi } from '../../utils/MainApi';
-// import ErrorPage from '../ErrorPage/ErrorPage';
+import ErrorPage from '../ErrorPage/ErrorPage';
 
 function App() {
   const [widthMode, setWidthMode] = React.useState(calcWidthMode());
@@ -36,7 +36,7 @@ function App() {
       clearTimeout(timeoutId);
       timeoutId = setTimeout(() => setWidthMode(calcWidthMode()), 150)
     })
-  })
+  }, [])
 
   const history = useHistory();
 
@@ -87,7 +87,7 @@ function App() {
             setLoggedIn(false)
         })
     }
-}, [loggedIn])
+}, [loggedIn, history])
 
   function signOut() {
     localStorage.removeItem('token');
@@ -115,6 +115,9 @@ function App() {
             </Route>
             <Route>
               {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/signin" />}
+            </Route>
+            <Route path="*">
+              <ErrorPage />
             </Route>
           </Switch>
         </CurrentUserContext.Provider>

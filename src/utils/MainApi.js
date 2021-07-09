@@ -58,5 +58,4 @@ export default class MainApi {
 
 }
 
-// export const mainApi = new MainApi({url: 'https://api.movie-kris.nomoredomains.club'});
-export const mainApi = new MainApi({url: 'http://localhost:3000'});
+export const mainApi = new MainApi({url: 'https://api.movie-kris.nomoredomains.club'});

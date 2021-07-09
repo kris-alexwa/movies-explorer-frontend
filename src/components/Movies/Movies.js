@@ -7,9 +7,9 @@ import SearchForm from './SearchForm/SearchForm';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 import { calcStartAmount } from '../../utils/calcStartAmount';
-import NotFoundMovies from './NotFoundMovies/NotFoundMovies';
 import Preloader from './Preloader/Preloader'
 import { mainApi } from '../../utils/MainApi';
+import MoviesErrorText from './MoviesErrorText/MoviesErrorText';
 
 const emptyArray = [];
 
@@ -19,6 +19,9 @@ function Movies(props) {
     const [amount, setAmount] = React.useState(calcStartAmount(props.widthMode));
     const [btnState, setBtnState] = React.useState(true);
     const [isLoading, setIsLoading] = React.useState(false);
+    const [emptyFilterTextSubmitted, setEmptyFilterTextSubmitted] = React.useState(false);
+    const [internalErrorHappened, setInternalErrorHappened] = React.useState(false)
+    // const [errorText, setErrorText] = React.useState('');
 
     //Копипаст-исправить
     const [checked, setChecked] = React.useState(false);
@@ -29,26 +32,7 @@ function Movies(props) {
 
     const filteredMovies = filterMovies(moviesCards, checked, filterText, emptyArray)
 
-    const showNotFound = filteredMovies.length === 0 && filterText.length > 0;
-
-    React.useEffect(() => {
-        if (localStorage.getItem('moviesCards')) {
-            setMoviesCards(JSON.parse(localStorage.getItem('moviesCards')))
-        } else {
-            setIsLoading(true)
-            moviesApi.getMoviesCards()
-                .then(res => {
-                    localStorage.setItem('moviesCards', JSON.stringify(res))
-                    setMoviesCards(res)
-                    setIsLoading(false)
-                })
-                .catch(err => {
-                    console.log(err)
-                    alert('Не удалось загрузить карточки')
-                    setIsLoading(false)
-                })
-        }
-    }, [])
+    const moviesNotFound = filteredMovies.length === 0 && filterText.length > 0;
 
     function foo() {
         if (localStorage.getItem('moviesCards')) {
@@ -63,7 +47,7 @@ function Movies(props) {
                 })
                 .catch(err => {
                     console.log(err)
-                    alert('Не удалось загрузить карточки')
+                    setInternalErrorHappened(true)
                     setIsLoading(false)
                 })
         }
@@ -84,7 +68,7 @@ function Movies(props) {
                     }))
                 })
                 .catch(err => {
-                    alert('Не удалось сохранить лайкнутые карточки')
+                    setInternalErrorHappened(true)
                     console.log(err)
                 })
         })
@@ -168,19 +152,35 @@ function Movies(props) {
 
     }
 
-    
-
+    const errorText = createErrorText(emptyFilterTextSubmitted, moviesNotFound, internalErrorHappened)
 
     return (
         <>
             <HeaderAuthUser selectedLink={"movies"} classNameSelected={'header__link_movies'} />
-            <SearchForm handleSubmit={handleSubmit} filterMoviesCards={moviesCards} checked={checked} handleChangeCheckbox={handleChangeCheckbox} />
+            <SearchForm handleSubmit={handleSubmit} filterMoviesCards={moviesCards} checked={checked} handleChangeCheckbox={handleChangeCheckbox} setEmptyFilterTextSubmitted={setEmptyFilterTextSubmitted}/>
             {isLoading && <Preloader />}
-            {showNotFound ? <NotFoundMovies /> : <MoviesCardList moviesCards={filteredMovies} amount={amount} itIsSavedMovies={false} handleMovieCardBtn={handleSavedMoviesBtn} />}
+            {/* {emptyFilterTextSubmitted && <EmptySearchForm />} */}
+            {errorText && <MoviesErrorText errorText={errorText}/>}
+            {!errorText && <MoviesCardList moviesCards={filteredMovies} amount={amount} itIsSavedMovies={false} handleMovieCardBtn={handleSavedMoviesBtn} />}
+            
             {btnState && <button className='movies-card-list__btn' onClick={handleBtnClick}>Ещё</button>}
             <Footer />
         </>
     )
+}
+
+function createErrorText(emptyFilterTextSubmitted, moviesNotFound, internalErrorHappened) {
+    if (emptyFilterTextSubmitted) {
+        return 'Нужно ввести ключевое слово'
+    } 
+
+    if (moviesNotFound) {
+        return "Ничего не найдено"
+    }
+
+    if (internalErrorHappened) {
+        return "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз."
+    }
 }
 
 function filterMovies(allMovies, onlyShorts, filterText, defaultValue) {

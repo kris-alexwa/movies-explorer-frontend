@@ -1,6 +1,4 @@
-// export const BASE_URL = 'https://api.movie-kris.nomoredomains.club';
-export const BASE_URL = 'http://localhost:3000';
-// Promise.reject({status: res.status, message: res.json().message}
+export const BASE_URL = 'https://api.movie-kris.nomoredomains.club';
 const checkResponse = (res) => res.ok ? res.json() : res.json().then(errBody => Promise.reject({status: res.status, message: errBody.message}))
 
 export const register = (name, email, password) => {
