@@ -27,13 +27,9 @@ function Movies(props) {
         setChecked(!checked)
     }
 
-    const filteredMovies = filterText.length > 0 && moviesCards != null ? moviesCards.filter(movie => {
-        return movie.nameRU.toLowerCase().includes(filterText.toLowerCase())
-    }) : emptyArray;
+    const filteredMovies = filterMovies(moviesCards, checked, filterText, emptyArray)
 
-    const checkboxFilterMoviesCard = filterText.length > 0 && moviesCards != null ? filteredMovies.filter(movie => {
-        return movie.duration <= 40
-    }) : emptyArray;
+    const showNotFound = filteredMovies.length === 0 && filterText.length > 0;
 
     React.useEffect(() => {
         if (localStorage.getItem('moviesCards')) {
@@ -99,12 +95,12 @@ function Movies(props) {
     }, [])
 
     React.useEffect(() => {
-        if (filteredMovies.length <= amount && checkboxFilterMoviesCard.length <= amount) {
+        if (filteredMovies.length <= amount) {
             setBtnState(false)
         } else {
             setBtnState(true)
         }
-    }, [filteredMovies, checkboxFilterMoviesCard, amount])
+    }, [filteredMovies, amount])
 
     function handleBtnClick() {
         if (props.widthMode === 'desktop') {
@@ -137,7 +133,7 @@ function Movies(props) {
 
     function handleSavedMoviesBtn(movieCard) {
         const obj = {
-            country: movieCard.country,
+            country: movieCard.country ?? 'unknown',
             director: movieCard.director,
             duration: movieCard.duration,
             year: movieCard.year,
@@ -146,7 +142,7 @@ function Movies(props) {
             trailer: movieCard.trailer,
             thumbnail: movieCard.thumbnail,
             nameRU: movieCard.nameRU,
-            nameEN: movieCard.nameEN,
+            nameEN: movieCard.nameEN || 'unknown',
             movieId: movieCard.movieId,
             owner: movieCard.owner,
         }
@@ -172,21 +168,33 @@ function Movies(props) {
 
     }
 
-    //Копипаст-исправить
-    const showNotFound = filteredMovies.length === 0 && checkboxFilterMoviesCard.length === 0 && filterText.length > 0;
+    
 
-    const filterCheckboxMovies = checked ? checkboxFilterMoviesCard : filteredMovies;
 
     return (
         <>
             <HeaderAuthUser selectedLink={"movies"} classNameSelected={'header__link_movies'} />
             <SearchForm handleSubmit={handleSubmit} filterMoviesCards={moviesCards} checked={checked} handleChangeCheckbox={handleChangeCheckbox} />
             {isLoading && <Preloader />}
-            {showNotFound ? <NotFoundMovies /> : <MoviesCardList moviesCards={filterCheckboxMovies} amount={amount} itIsSavedMovies={false} handleMovieCardBtn={handleSavedMoviesBtn} />}
+            {showNotFound ? <NotFoundMovies /> : <MoviesCardList moviesCards={filteredMovies} amount={amount} itIsSavedMovies={false} handleMovieCardBtn={handleSavedMoviesBtn} />}
             {btnState && <button className='movies-card-list__btn' onClick={handleBtnClick}>Ещё</button>}
             <Footer />
         </>
     )
+}
+
+function filterMovies(allMovies, onlyShorts, filterText, defaultValue) {
+    if (allMovies == null || filterText.length === 0) {
+        return defaultValue
+    }
+
+    return allMovies.filter(movie => {
+        if (onlyShorts) {
+            return movie.nameRU.toLowerCase().includes(filterText.toLowerCase()) && movie.duration <= 40
+        } else {
+            return movie.nameRU.toLowerCase().includes(filterText.toLowerCase())
+        }
+    })
 }
 
 export default Movies;

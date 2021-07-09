@@ -11,6 +11,11 @@ import NotFoundMovies from '../Movies/NotFoundMovies/NotFoundMovies';
 function SavedMovies(props) {
     const [savedMovies, setSaveMovies] = React.useState([]);
     const [filterText, setFilterText] = React.useState('');
+    const [checked, setChecked] = React.useState(false);
+
+    React.useEffect(() => {
+        getSavedMovies();
+    }, [])
 
     function getSavedMovies() {
         mainApi.getSavedMovies(props.token)
@@ -19,10 +24,6 @@ function SavedMovies(props) {
             })
             .catch((err) => console.log(err))
     }
-
-    React.useEffect(() => {
-        getSavedMovies();
-    }, [])
 
     function handleDeleteMovieCard(movieCardId) {
         mainApi.deleteMovieCard(movieCardId, props.token)
@@ -39,33 +40,36 @@ function SavedMovies(props) {
         setFilterText(value)
     }
 
-    const filteredSavedMovies = (filterText.length > 0 && savedMovies != null) || filterText.length === 0 ? savedMovies.filter(movie => {
-        return movie.nameRU.toLowerCase().includes(filterText.toLowerCase())
-    }) : savedMovies;
-
-    const checkboxFilterMoviesCard = filterText.length > 0 && savedMovies != null ? filteredSavedMovies.filter(movie => {
-        return movie.duration <= 40
-     }) : savedMovies;
-
-    const showNotFound = filteredSavedMovies.length === 0 && filterText.length > 0;
-
-    //Копипаст-исправить
-    const [checked, setChecked] = React.useState(false);
-
     function handleChangeCheckbox() {
         setChecked(!checked)
     }
 
-     const filterCheckboxMovies = checked ? checkboxFilterMoviesCard : filteredSavedMovies;
+    const filteredSavedMovies = filterMovies(savedMovies, checked, filterText, savedMovies)
+
+    const showNotFound = filteredSavedMovies.length === 0 && filterText.length > 0;
 
     return (
         <>
             <HeaderAuthUser itIsSavedMoviesPage={true} selectedLink={'savedMovies'} classNameSelected={'header__link_saved-movies'}/>
             <SearchForm handleSubmit={handleSubmit} filterMoviesCards={savedMovies} checked={checked} handleChangeCheckbox={handleChangeCheckbox}/>
-            {showNotFound ? <NotFoundMovies /> : <MoviesCardList itIsSavedMovies={true} moviesCards={filterCheckboxMovies} handleMovieCardBtn={handleDeleteMovieCard} />}
+            {showNotFound ? <NotFoundMovies /> : <MoviesCardList itIsSavedMovies={true} moviesCards={filteredSavedMovies} handleMovieCardBtn={handleDeleteMovieCard} />}
             <Footer />
         </>
     )
+}
+
+function filterMovies(allMovies, onlyShorts, filterText, defaultValue) {
+    if (allMovies == null) {
+        return defaultValue
+    }
+
+    return allMovies.filter(movie => {
+        if (onlyShorts) {
+            return movie.nameRU.toLowerCase().includes(filterText.toLowerCase()) && movie.duration <= 40
+        } else {
+            return movie.nameRU.toLowerCase().includes(filterText.toLowerCase())
+        }
+    })
 }
 
 export default SavedMovies;
