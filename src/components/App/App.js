@@ -72,6 +72,23 @@ function App() {
       })
   }, [loggedIn, token])
 
+  React.useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+        userAuth.getContent(token)
+        .then((res) => {
+            if (res) {
+                setLoggedIn(true)
+                history.push('/movies')
+            }
+        })
+        .catch((err) => {
+            localStorage.removeItem('token')
+            setLoggedIn(false)
+        })
+    }
+}, [loggedIn])
+
   function signOut() {
     localStorage.removeItem('token');
     setLoggedIn(false)
@@ -83,8 +100,8 @@ function App() {
       <div className="page">
         <CurrentUserContext.Provider value={currentUser}>
           <Switch>
-            <ProtectedRoute path="/movies" widthMode={widthMode} loggedIn={loggedIn} component={Movies}></ProtectedRoute>
-            <ProtectedRoute path="/saved-movies" loggedIn={loggedIn} component={SavedMovies}></ProtectedRoute>
+            <ProtectedRoute path="/movies" widthMode={widthMode} loggedIn={loggedIn} component={Movies} token={token}></ProtectedRoute>
+            <ProtectedRoute path="/saved-movies" loggedIn={loggedIn} component={SavedMovies} token={token}></ProtectedRoute>
             <ProtectedRoute path="/profile" loggedIn={loggedIn} component={Profile} signOut={signOut} token={token} setCurrentUser={setCurrentUser}A>
             </ProtectedRoute>
             <Route exact path="/">

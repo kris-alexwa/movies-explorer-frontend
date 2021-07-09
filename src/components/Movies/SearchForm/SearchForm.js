@@ -2,6 +2,7 @@ import React from 'react';
 import './SearchForm.css';
 import searchIconGray from '../../../images/icons/search-icon.svg';
 import searchIconWhite from '../../../images/icons/search-icon-white.svg';
+import FilterCheckbox from '../../FilterCheckbox/FilterCheckbox';
 
 function SearchForm(props) {
     const [value, setValue] = React.useState('');
@@ -26,10 +27,7 @@ function SearchForm(props) {
                             <img className="search-form__icon search-form__icon_white-theme" src={searchIconWhite} alt="Иконка поиска"></img>
                         </button>
                     </div>
-                    <div className="search-form__checkbox checkbox">
-                        <input className="checkbox__btn" type="checkbox"></input>
-                        <h3 className="checkbox__title">Короткометражки</h3>
-                    </div>
+                    <FilterCheckbox filterMoviesCards={props.filterMoviesCards} checked={props.checked} handleChangeCheckbox={props.handleChangeCheckbox} />
                 </div>
             </form>
         </>

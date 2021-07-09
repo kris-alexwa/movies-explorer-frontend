@@ -11,28 +11,28 @@ export default class MainApi {
         return Promise.reject(`Ошибка ${res.status}`);
     }
 
-    getSavedMovies() {
+    getSavedMovies(token) {
         return fetch(this.url + "/movies", {
             method: "GET",
-            headers: {...this.headers, 'Content-Type': 'application/json', 'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGRjYzE4ODZmNmMyOTFlNjEwNjcyNWYiLCJpYXQiOjE2MjUwODAyMTQsImV4cCI6MTYyNTY4NTAxNH0.CpY7szRgdyol-OhWkIL6X0fib_0i5si5NlC2vgX5Oyg` },
+            headers: {...this.headers, 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         })
         .then(this._checkResponse)
     }
 
-    savedMovieCard(movieCard) {
+    savedMovieCard(movieCard, token) {
         return fetch(this.url + "/movies", {
                 method: "POST",
-                headers: {...this.headers, 'Content-Type': 'application/json', 'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGRjYzE4ODZmNmMyOTFlNjEwNjcyNWYiLCJpYXQiOjE2MjUwODAyMTQsImV4cCI6MTYyNTY4NTAxNH0.CpY7szRgdyol-OhWkIL6X0fib_0i5si5NlC2vgX5Oyg` },
+                headers: {...this.headers, 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify(movieCard)
             })
             .then(this._checkResponse)
     }
 
     
-    deleteMovieCard(id) {
+    deleteMovieCard(id, token) {
         return fetch(this.url + "/movies/" + id, {
                 method: "DELETE",
-                headers: {...this.headers, 'Content-Type': 'application/json', 'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGRjYzE4ODZmNmMyOTFlNjEwNjcyNWYiLCJpYXQiOjE2MjUwODAyMTQsImV4cCI6MTYyNTY4NTAxNH0.CpY7szRgdyol-OhWkIL6X0fib_0i5si5NlC2vgX5Oyg` },
+                headers: {...this.headers, 'Authorization': `Bearer ${token}` },
             })
             .then(this._checkResponse)
     }

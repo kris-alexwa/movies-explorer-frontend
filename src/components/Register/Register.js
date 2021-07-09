@@ -2,8 +2,6 @@ import React, {useCallback} from 'react';
 import './Register.css';
 import Auth from '../Auth/Auth';
 
-
-
 function Register(props) {
     const [nameInputError, setNameInputError] = React.useState(null);
     const [emailInputError, setEmailInputError] = React.useState(null);
