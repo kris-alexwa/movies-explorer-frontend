@@ -17,8 +17,9 @@ function HeaderDesctopLink(props) {
 
     links[props.selectedLink].selected = true
 
-    const linkClassName = "header__link"
-    const linkSelectedClassName = linkClassName + ` ${props.classNameSelected}`
+    const linkClassName = props.dark ? "header__link header__link_light" : "header__link header__link_dark"
+    const linkSelectedClassName = linkClassName + ` ${props.classNameSelected}`;
+    
 
     return (
         <>

@@ -12,12 +12,15 @@ import * as userAuth from '../../utils/userAuth';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { mainApi } from '../../utils/MainApi';
 import ErrorPage from '../ErrorPage/ErrorPage';
+import Preloader from '../Movies/Preloader/Preloader';
 
 function App() {
   const [widthMode, setWidthMode] = React.useState(calcWidthMode());
-  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [loggedIn, setLoggedIn] = React.useState(null);
   const [currentUser, setCurrentUser] = React.useState({});
   const token = localStorage.getItem('token');
+
+
 
   function calcWidthMode() {
     const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
@@ -46,7 +49,6 @@ function App() {
         userAuth.authorize(email, password)
           .then(() => {
             setLoggedIn(true)
-            history.push('/movies')
           })
       })
   }
@@ -54,7 +56,6 @@ function App() {
   function handleLogin(email, password) {
     return userAuth.authorize(email, password).then((res) => {
       setLoggedIn(true)
-      history.push('/movies')
     })
   }
 
@@ -75,19 +76,20 @@ function App() {
   React.useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-        userAuth.getContent(token)
+      userAuth.getContent(token)
         .then((res) => {
-            if (res) {
-                setLoggedIn(true)
-                history.push('/movies')
-            }
+          if (res) {
+            setLoggedIn(true)
+          }
         })
         .catch((err) => {
-            localStorage.removeItem('token')
-            setLoggedIn(false)
+          localStorage.removeItem('token')
+          setLoggedIn(false)
         })
+    } else {
+      setLoggedIn(false)
     }
-}, [loggedIn, history])
+  }, [loggedIn])
 
   function signOut() {
     localStorage.removeItem('token');
@@ -98,29 +100,28 @@ function App() {
   return (
     <div className="body">
       <div className="page">
-        <CurrentUserContext.Provider value={currentUser}>
+        {loggedIn == null ? <Preloader /> : <CurrentUserContext.Provider value={currentUser}>
           <Switch>
             <ProtectedRoute path="/movies" widthMode={widthMode} loggedIn={loggedIn} component={Movies} token={token}></ProtectedRoute>
             <ProtectedRoute path="/saved-movies" loggedIn={loggedIn} component={SavedMovies} token={token}></ProtectedRoute>
-            <ProtectedRoute path="/profile" loggedIn={loggedIn} component={Profile} signOut={signOut} token={token} setCurrentUser={setCurrentUser}A>
-            </ProtectedRoute>
+            <ProtectedRoute path="/profile" loggedIn={loggedIn} component={Profile} signOut={signOut} token={token} setCurrentUser={setCurrentUser}></ProtectedRoute>
             <Route exact path="/">
-              <Main />
+              <Main loggedIn={loggedIn} />
             </Route>
             <Route path="/signin">
-              <Login onLogin={handleLogin} />
+              {loggedIn ? <Redirect to="/movies" /> : <Login onLogin={handleLogin} />}
             </Route>
             <Route path="/signup">
-              <Register onRegister={handleRegister} userData={setCurrentUser} />
-            </Route>
-            <Route>
-              {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/signin" />}
+              {loggedIn ? <Redirect to="/movies" /> : <Register onRegister={handleRegister} userData={setCurrentUser} />}
             </Route>
             <Route path="*">
               <ErrorPage />
             </Route>
+            <Route>
+              {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/signin" />}
+            </Route>
           </Switch>
-        </CurrentUserContext.Provider>
+        </CurrentUserContext.Provider>}
       </div>
     </div>
   );

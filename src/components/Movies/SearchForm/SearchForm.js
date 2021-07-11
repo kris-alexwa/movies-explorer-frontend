@@ -5,19 +5,37 @@ import searchIconWhite from '../../../images/icons/search-icon-white.svg';
 import FilterCheckbox from '../../FilterCheckbox/FilterCheckbox';
 
 function SearchForm(props) {
-    const [value, setValue] = React.useState('');
+    const [value, setValue] = React.useState(props.initialValue || '');
 
     function handleChange(event) {
         setValue(event.target.value)
     }
 
-    function handleSubmit(event) {
-        event.preventDefault();
+    function handleSubmitValue(value) {
         props.handleSubmit(value);
         if (props.setEmptyFilterTextSubmitted) {
             props.setEmptyFilterTextSubmitted(value === '')
         }
     }
+
+    function handleSubmit(event) {
+        event.preventDefault();
+        handleSubmitValue(value)
+    }
+
+
+    React.useEffect(() => {
+        if (!props.restoreFromLocalStorage) {
+            return;
+        }
+
+        const value = localStorage.getItem('moviesFilterText');
+        if (value) {
+            setValue(value)
+            handleSubmitValue(value)
+        }
+       
+    }, [])
 
     return (
         <>

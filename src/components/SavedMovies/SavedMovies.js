@@ -54,7 +54,7 @@ function SavedMovies(props) {
 
     return (
         <>
-            <HeaderAuthUser itIsSavedMoviesPage={true} selectedLink={'savedMovies'} classNameSelected={'header__link_saved-movies'}/>
+            <HeaderAuthUser itIsSavedMoviesPage={true} selectedLink={'savedMovies'} selectedMobileLink={'savedMovies'} dark={false} classNameSelected={'header__link_saved-movies'}/>
             <SearchForm handleSubmit={handleSubmit} filterMoviesCards={savedMovies} checked={checked} handleChangeCheckbox={handleChangeCheckbox}/>
             {errorText && <MoviesErrorText errorText={errorText}/>}
             {!errorText && <MoviesCardList itIsSavedMovies={true} moviesCards={filteredSavedMovies} handleMovieCardBtn={handleDeleteMovieCard} />}

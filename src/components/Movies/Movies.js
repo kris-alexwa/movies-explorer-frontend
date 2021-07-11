@@ -21,9 +21,7 @@ function Movies(props) {
     const [isLoading, setIsLoading] = React.useState(false);
     const [emptyFilterTextSubmitted, setEmptyFilterTextSubmitted] = React.useState(false);
     const [internalErrorHappened, setInternalErrorHappened] = React.useState(false)
-    // const [errorText, setErrorText] = React.useState('');
 
-    //Копипаст-исправить
     const [checked, setChecked] = React.useState(false);
 
     function handleChangeCheckbox() {
@@ -33,6 +31,13 @@ function Movies(props) {
     const filteredMovies = filterMovies(moviesCards, checked, filterText, emptyArray)
 
     const moviesNotFound = filteredMovies.length === 0 && filterText.length > 0;
+
+    function setFilterTextWrapper(value) {
+        localStorage.setItem('moviesFilterText', value)
+        setFilterText(value)
+    }
+
+
 
     function foo() {
         if (localStorage.getItem('moviesCards')) {
@@ -59,7 +64,7 @@ function Movies(props) {
             mainApi.getSavedMovies(props.token)
                 .then((savedMovies) => {
                     setMoviesCards(allMovies.map(movie => {
-                        const foundSavedMovie = savedMovies.find((savedMovie) => savedMovie.movieId ===  movie.movieId)
+                        const foundSavedMovie = savedMovies.find((savedMovie) => savedMovie.movieId === movie.movieId)
                         if (foundSavedMovie != null) {
                             return { ...movie, saved: true, savedId: foundSavedMovie._id }
                         } else {
@@ -97,7 +102,7 @@ function Movies(props) {
     }
 
     function handleSubmit(value) {
-        setFilterText(value)
+        setFilterTextWrapper(value)
         setAmount(calcStartAmount(props.widthMode))
     }
 
@@ -149,20 +154,24 @@ function Movies(props) {
                     console.log(err)
                 })
         }
-
     }
 
     const errorText = createErrorText(emptyFilterTextSubmitted, moviesNotFound, internalErrorHappened)
 
     return (
         <>
-            <HeaderAuthUser selectedLink={"movies"} classNameSelected={'header__link_movies'} />
-            <SearchForm handleSubmit={handleSubmit} filterMoviesCards={moviesCards} checked={checked} handleChangeCheckbox={handleChangeCheckbox} setEmptyFilterTextSubmitted={setEmptyFilterTextSubmitted}/>
+            <HeaderAuthUser selectedLink={"movies"} selectedMobileLink={'movies'} classNameSelected={'header__link_movies'} dark={false} />
+            <SearchForm handleSubmit={handleSubmit}
+                filterMoviesCards={moviesCards}
+                checked={checked}
+                handleChangeCheckbox={handleChangeCheckbox}
+                setEmptyFilterTextSubmitted={setEmptyFilterTextSubmitted}
+                initialValue={filterText}
+                restoreFromLocalStorage={true} />
             {isLoading && <Preloader />}
-            {/* {emptyFilterTextSubmitted && <EmptySearchForm />} */}
-            {errorText && <MoviesErrorText errorText={errorText}/>}
+            {errorText && <MoviesErrorText errorText={errorText} />}
             {!errorText && <MoviesCardList moviesCards={filteredMovies} amount={amount} itIsSavedMovies={false} handleMovieCardBtn={handleSavedMoviesBtn} />}
-            
+
             {btnState && <button className='movies-card-list__btn' onClick={handleBtnClick}>Ещё</button>}
             <Footer />
         </>
@@ -172,7 +181,7 @@ function Movies(props) {
 function createErrorText(emptyFilterTextSubmitted, moviesNotFound, internalErrorHappened) {
     if (emptyFilterTextSubmitted) {
         return 'Нужно ввести ключевое слово'
-    } 
+    }
 
     if (moviesNotFound) {
         return "Ничего не найдено"

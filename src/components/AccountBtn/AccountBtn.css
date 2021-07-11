@@ -3,12 +3,21 @@
     width: 100px;
     height: 32px;
     padding: 0;
-    border-color: #AAAAAA;
     border-radius: 50px;
     font-size: 14px;
     font-weight: 400;
     cursor: pointer;
     transition: opacity 0.5s ease;
+}
+
+.header__btn-account_dark {
+    border-color: #AAAAAA;
+    color: #000;
+}
+
+.header__btn-account_light {
+    color: #fff;
+    border-color: #fff;
 }
 
 .header__account-icon {

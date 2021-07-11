@@ -8,7 +8,7 @@ export default class MainApi {
         if (res.ok) {
             return res.json();
         }
-        return Promise.reject(`Ошибка ${res.status}`);
+        return res.json().then(errBody => Promise.reject({status: res.status, message: errBody.message}))
     }
 
     getSavedMovies(token) {
@@ -58,4 +58,5 @@ export default class MainApi {
 
 }
 
-export const mainApi = new MainApi({url: 'https://api.movie-kris.nomoredomains.club'});
+// export const mainApi = new MainApi({url: 'https://api.movie-kris.nomoredomains.club'});
+export const mainApi = new MainApi({url: 'http://localhost:3000'});

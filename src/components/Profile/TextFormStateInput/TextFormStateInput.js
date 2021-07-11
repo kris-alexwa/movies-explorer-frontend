@@ -8,18 +8,24 @@ function TextFormStateInput(props) {
     const emailRef = React.useRef();
     const [userName, setUserName] = React.useState('');
     const [userEmail, setUserEmail] = React.useState('');
+    const [emailInputError, setEmailInputError] = React.useState(null);
+    const [nameInputError, setNameInputError] = React.useState(null);
+    const [formValid, setFormValid] = React.useState(false);
+    const formRef = React.useRef();
 
-    React.useEffect(() => {     
+    React.useEffect(() => {
         setUserName(currentUser?.name ?? '');
         setUserEmail(currentUser?.email ?? '')
     }, [currentUser, props.isEdit]);
 
     function handleChangeName(event) {
         setUserName(event.target.value)
+        setNameInputError(event.target.validationMessage)
     }
 
     function handleChangeEmail(event) {
         setUserEmail(event.target.value)
+        setEmailInputError(event.target.validationMessage)
     }
 
     function handleSubmit(event) {
@@ -28,7 +34,14 @@ function TextFormStateInput(props) {
             name: nameRef.current.value,
             email: emailRef.current.value,
         })
-        
+    }
+
+    function validate() {
+        setFormValid(formRef.current.checkValidity())
+    }
+
+    function handleFormChange() {
+        validate()
     }
 
     const submitBtnText = 'Сохранить'
@@ -38,16 +51,21 @@ function TextFormStateInput(props) {
 
     return (
         <>
-            <form className="text-form text-form__form" onSubmit={handleSubmit}>
+            <form className="text-form text-form__form" onSubmit={handleSubmit} ref={formRef} onChange={handleFormChange}>
                 <div className="text-form__container">
                     <label className="text-form__title text-form__title_label">Имя</label>
-                    <input className="text-form__user-data text-form__input text-form__name" ref={nameRef} value={userName} onChange={handleChangeName}></input>
+                    <input name="name" type="text" minLength="2" maxLength="30" pattern="^[a-zA-zа-яА-Я0-9\s\-]+$" required className="text-form__user-data text-form__input text-form__name" ref={nameRef} value={userName} onChange={handleChangeName}></input>
                 </div>
+                <span className="auth__input-error">{nameInputError}</span>
                 <div className="text-form__container">
                     <label className="text-form__title text-form__title_label">E-mail</label>
-                    <input className="text-form__user-data text-form__input text-form__email" ref={emailRef} value={userEmail} onChange={handleChangeEmail} ></input>
+                    <input type="email" className="text-form__user-data text-form__input text-form__email" ref={emailRef} value={userEmail} onChange={handleChangeEmail} ></input>
                 </div>
-                <button type="submit" className="form__btn form__btn_save" >{submitTetx}</button>
+                <span className="auth__input-error">{emailInputError}</span>
+                <div className="text-form__wrapper">
+                    <span className="auth__error-message">{props.errorText}</span>
+                    <button type="submit" className="form__btn form__btn_save" disabled={!formValid} >{submitTetx}</button>
+                </div>
             </form>
         </>
     )

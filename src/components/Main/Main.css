@@ -3,3 +3,9 @@
     align-items: center;
     flex-direction: column;
 }
+
+
+.header__links_main {
+    color: white;
+    margin-right: 20px;
+}
