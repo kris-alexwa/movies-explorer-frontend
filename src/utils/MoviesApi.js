@@ -35,5 +35,5 @@ export default class MoviesApi {
     }
 }
 
-// export const moviesApi = new MoviesApi({url: 'https://api.nomoreparties.co/beatfilm-movies'});
-export const moviesApi = new MoviesApi({url: 'http://localhost:3000'});
+export const moviesApi = new MoviesApi({url: 'https://api.nomoreparties.co/beatfilm-movies'});
+// export const moviesApi = new MoviesApi({url: 'http://localhost:3000'});
