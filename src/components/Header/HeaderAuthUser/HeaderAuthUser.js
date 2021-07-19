@@ -14,15 +14,17 @@ function HeaderAuthUser(props) {
 
     const classNamePopup = `header-popup ${isOpen ? 'header-popup__visibility' : ''}`
 
+    const burgerMenuState =`header__burger-menu ${props.dark ? 'header__burger-menu_light' : 'header__burger-menu_dark'}`
+
     return (
         <>
-            <HeaderMobileLink classNamePopup={classNamePopup} handleClickBurgerBtn={handleClickBurgerBtn} selectedLink={props.selectedLink} />
-            <Header>
-                <button className="header__burger-menu" onClick={handleClickBurgerBtn}></button>
+            <HeaderMobileLink classNamePopup={classNamePopup} handleClickBurgerBtn={handleClickBurgerBtn} selectedMobileLink={props.selectedMobileLink} />
+            <Header dark={props.dark}>
+                <button className={burgerMenuState} onClick={handleClickBurgerBtn}></button>
                 <nav className="header__links">
-                    <HeaderDesctopLink selectedLink={props.selectedLink} classNameSelected={props.classNameSelected} />
+                    <HeaderDesctopLink selectedLink={props.selectedLink} classNameSelected={props.classNameSelected} dark={props.dark}/>
                 </nav>
-                <AccountBtn />
+                <AccountBtn dark={props.dark}/>
             </Header>
         </>
     )

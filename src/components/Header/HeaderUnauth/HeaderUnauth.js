@@ -1,9 +1,9 @@
 import React from 'react';
-import './HeaderMain.css';
+import './HeaderUnauth.css';
 import Header from '../Header';
 import { Link } from 'react-router-dom';
 
-function HeaderAuthUser() {
+function HeaderUnauth() {
     return (
         <>
             <Header dark={true}>
@@ -14,4 +14,4 @@ function HeaderAuthUser() {
     )
 }
 
-export default HeaderAuthUser;
+export default HeaderUnauth;

@@ -11,10 +11,13 @@
     width: 100%;
 }
 
+.text-form__container_state-default:first-of-type {
+    margin-bottom: 17px;
+}
+
 .text-form__container:first-of-type {
     border-bottom: solid 1px #E8E8E8;
     padding-bottom: 16px;
-    margin-bottom: 17px;
 }
 
 .text-form__title {

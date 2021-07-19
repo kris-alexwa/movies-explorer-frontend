@@ -35,7 +35,6 @@
 .auth__form-item {
     display: flex;
     flex-direction: column;
-    margin-bottom: 24px;
 }
 
 .auth__form-item:last-of-type {
@@ -62,6 +61,12 @@
 
 .form__btn:hover {
     opacity: 0.8;
+}
+
+.form__btn:disabled {
+    cursor: default;
+    background-color: #F8F8F8;
+    color:#C2C2C2;
 }
 
 .auth__wrapper {
@@ -95,12 +100,20 @@
     font-size: 10px;
     line-height: 12px;
     margin-top: 6px;
+    margin-bottom: 6px;
     max-width: 396px;
+    height: 17px;
     word-wrap: break-word;
 }
 
 .auth__form-input_invalid {
     color: #FF3055;
+}
+
+.auth__error-message {
+    color: #FF004C;
+    font-size: 11px;
+    margin: 0 auto 20px auto;
 }
 
 @media screen and (max-width: 767px) {

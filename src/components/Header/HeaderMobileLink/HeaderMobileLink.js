@@ -6,7 +6,8 @@ function HeaderMobileLink(props) {
     const links = {
         main: {
             url: '/',
-            title: 'Главная'
+            title: 'Главная',
+            selected: false
         },
         movies: {
             url: '/movies',
@@ -19,8 +20,8 @@ function HeaderMobileLink(props) {
             selected: false
         }
     }
-
-    links[props.selectedLink].selected = true
+    
+    links[props.selectedMobileLink].selected = true
 
     const linkClassName = "header__link header__link-movies_movies header-popup__link"
     const linkSelectedClassName = linkClassName + " header-popup__link-mobile_selected"

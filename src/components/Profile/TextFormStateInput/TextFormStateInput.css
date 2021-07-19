@@ -1,7 +1,6 @@
 .text-form__form {
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
 .text-form__input {
@@ -16,8 +15,15 @@
 }
 
 .form__btn_save {
-    margin-top: 223px;
+    
     width: 410px;
+}
+
+.text-form__wrapper {
+    margin-top: 223px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 @media screen and (max-width: 767px) {

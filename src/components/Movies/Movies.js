@@ -1,48 +1,209 @@
 import React from 'react';
 import './Movies.css';
 
-import MoviesCard from './MoviesCard/MoviesCard';
-import imageMovies1 from '../../images/imageMovies-1.jpg';
-import imageMovies2 from '../../images/imageMovies-2.jpg';
-import imageMovies3 from '../../images/imageMovies-3.jpg';
-import imageMovies4 from '../../images/imageMovies-4.jpg';
-import imageMovies5 from '../../images/imageMovies-5.jpg';
-import imageMovies6 from '../../images/imageMovies-6.jpg';
-import imageMovies7 from '../../images/imageMovies-7.jpg';
-import imageMovies8 from '../../images/imageMovies-8.jpg';
-import imageMovies9 from '../../images/imageMovies-9.jpg';
-import imageMovies10 from '../../images/imageMovies-10.jpg';
-import imageMovies11 from '../../images/imageMovies-11.jpg';
-import imageMovies12 from '../../images/imageMovies-12.jpg';
-
+import { moviesApi } from '../../utils/MoviesApi';
 import HeaderAuthUser from '../Header/HeaderAuthUser/HeaderAuthUser';
 import SearchForm from './SearchForm/SearchForm';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
+import { calcStartAmount } from '../../utils/calcStartAmount';
+import Preloader from './Preloader/Preloader'
+import { mainApi } from '../../utils/MainApi';
+import MoviesErrorText from './MoviesErrorText/MoviesErrorText';
 
-function Movies() {
+const emptyArray = [];
+
+function Movies(props) {
+    const [moviesCards, setMoviesCards] = React.useState([])
+    const [filterText, setFilterText] = React.useState('');
+    const [amount, setAmount] = React.useState(calcStartAmount(props.widthMode));
+    const [btnState, setBtnState] = React.useState(true);
+    const [isLoading, setIsLoading] = React.useState(false);
+    const [emptyFilterTextSubmitted, setEmptyFilterTextSubmitted] = React.useState(false);
+    const [internalErrorHappened, setInternalErrorHappened] = React.useState(false)
+
+    const [checked, setChecked] = React.useState(false);
+
+    function handleChangeCheckbox() {
+        setChecked(!checked)
+    }
+
+    const filteredMovies = filterMovies(moviesCards, checked, filterText, emptyArray)
+
+    const moviesNotFound = filteredMovies.length === 0 && filterText.length > 0;
+
+    function setFilterTextWrapper(value) {
+        localStorage.setItem('moviesFilterText', value)
+        setFilterText(value)
+    }
+
+
+
+    function foo() {
+        if (localStorage.getItem('moviesCards')) {
+            return Promise.resolve(JSON.parse(localStorage.getItem('moviesCards')))
+        } else {
+            setIsLoading(true)
+            return moviesApi.getMoviesCards()
+                .then(res => {
+                    localStorage.setItem('moviesCards', JSON.stringify(res))
+                    setIsLoading(false)
+                    return res
+                })
+                .catch(err => {
+                    console.log(err)
+                    setInternalErrorHappened(true)
+                    setIsLoading(false)
+                })
+        }
+    }
+
+    function loadMovies() {
+        const allMoviesPromise = foo()
+        allMoviesPromise.then(allMovies => {
+            mainApi.getSavedMovies(props.token)
+                .then((savedMovies) => {
+                    setMoviesCards(allMovies.map(movie => {
+                        const foundSavedMovie = savedMovies.find((savedMovie) => savedMovie.movieId === movie.movieId)
+                        if (foundSavedMovie != null) {
+                            return { ...movie, saved: true, savedId: foundSavedMovie._id }
+                        } else {
+                            return { ...movie, saved: false }
+                        }
+                    }))
+                })
+                .catch(err => {
+                    setInternalErrorHappened(true)
+                    console.log(err)
+                })
+        })
+    }
+
+    React.useEffect(() => {
+        loadMovies()
+    }, [])
+
+    React.useEffect(() => {
+        if (filteredMovies.length <= amount) {
+            setBtnState(false)
+        } else {
+            setBtnState(true)
+        }
+    }, [filteredMovies, amount])
+
+    function handleBtnClick() {
+        if (props.widthMode === 'desktop') {
+            setAmount(amount + 3)
+        } else if (props.widthMode === 'tablet') {
+            setAmount(amount + 2)
+        } else if (props.widthMode === 'mobile') {
+            setAmount(amount + 1)
+        }
+    }
+
+    function handleSubmit(value) {
+        setFilterTextWrapper(value)
+        setAmount(calcStartAmount(props.widthMode))
+    }
+
+    function handleLikeMovieCard(movieId, savedId) {
+        const newMovies = moviesCards.map(movie => {
+            if (movie.movieId === movieId) {
+                movie.saved = !movie.saved;
+                movie.savedId = savedId;
+                return movie
+            } else {
+                return movie
+            }
+        })
+
+        setMoviesCards(newMovies)
+    }
+
+    function handleSavedMoviesBtn(movieCard) {
+        const obj = {
+            country: movieCard.country ?? 'unknown',
+            director: movieCard.director,
+            duration: movieCard.duration,
+            year: movieCard.year,
+            description: movieCard.description,
+            image: movieCard.image,
+            trailer: movieCard.trailer,
+            thumbnail: movieCard.thumbnail,
+            nameRU: movieCard.nameRU,
+            nameEN: movieCard.nameEN || 'unknown',
+            movieId: movieCard.movieId,
+            owner: movieCard.owner,
+        }
+        if (!movieCard.saved) {
+            mainApi.savedMovieCard(obj, props.token)
+                .then((newLikedMovieCard) => {
+                    handleLikeMovieCard(obj.movieId, newLikedMovieCard._id)
+                })
+                .catch((err) => {
+                    alert('Данный фильм уже был добавлен в избранное')
+                    console.log(err)
+                })
+        } else {
+            mainApi.deleteMovieCard(movieCard.savedId, props.token)
+                .then(() => {
+                    handleLikeMovieCard(obj.movieId)
+                })
+                .catch((err) => {
+                    alert('Не удалось удалить карточку')
+                    console.log(err)
+                })
+        }
+    }
+
+    const errorText = createErrorText(emptyFilterTextSubmitted, moviesNotFound, internalErrorHappened)
+
     return (
         <>
-            <HeaderAuthUser selectedLink={"movies"} classNameSelected={'header__link_movies'}/>
-            <SearchForm />
-            <MoviesCardList>
-                <MoviesCard imageMovie={imageMovies1} titleMovie={"33 слова о дизайне"} timingMovie={'1ч 47м'} />
-                <MoviesCard imageMovie={imageMovies2} titleMovie={"Киноальманах «100 лет дизайна»"} timingMovie={'1ч 3м'} />
-                <MoviesCard imageMovie={imageMovies3} titleMovie={"В погоне за Бенкси"} timingMovie={'1ч 42м'} />
-                <MoviesCard imageMovie={imageMovies4} titleMovie={"Баския: Взрыв реальности"} timingMovie={'1ч 21м'} />
-                <MoviesCard imageMovie={imageMovies5} titleMovie={"Бег это свобода"} timingMovie={'1ч 44м'} />
-                <MoviesCard imageMovie={imageMovies6} titleMovie={"Книготорговцы"} timingMovie={'1ч 37м'} />
-                <MoviesCard imageMovie={imageMovies7} titleMovie={"Когда я думаю о Германии ночью"} timingMovie={'1ч 56м'} />
-                <MoviesCard imageMovie={imageMovies8} titleMovie={"Gimme Danger: История Игги и The Stooge..."} timingMovie={'1ч 21м'} />
-                <MoviesCard imageMovie={imageMovies9} titleMovie={"Дженис: Маленькая девочка грустит"} timingMovie={'1ч 42м'} />
-                <MoviesCard imageMovie={imageMovies10} titleMovie={"Соберись перед прыжком"} timingMovie={'1ч 10м'} />
-                <MoviesCard imageMovie={imageMovies11} titleMovie={"Пи Джей Харви: A dog called money"} timingMovie={'1ч 4м'} />
-                <MoviesCard imageMovie={imageMovies12} titleMovie={"По волнам: Искусство звука в кино"} timingMovie={'1ч 7м'} />
-            </MoviesCardList>
-            <button className="movies-card-list__btn">Ещё</button>
+            <HeaderAuthUser selectedLink={"movies"} selectedMobileLink={'movies'} classNameSelected={'header__link_movies'} dark={false} />
+            <SearchForm handleSubmit={handleSubmit}
+                filterMoviesCards={moviesCards}
+                checked={checked}
+                handleChangeCheckbox={handleChangeCheckbox}
+                setEmptyFilterTextSubmitted={setEmptyFilterTextSubmitted}
+                initialValue={filterText}
+                restoreFromLocalStorage={true} />
+            {isLoading && <Preloader />}
+            {errorText && <MoviesErrorText errorText={errorText} />}
+            {!errorText && <MoviesCardList moviesCards={filteredMovies} amount={amount} itIsSavedMovies={false} handleMovieCardBtn={handleSavedMoviesBtn} />}
+
+            {btnState && <button className='movies-card-list__btn' onClick={handleBtnClick}>Ещё</button>}
             <Footer />
         </>
     )
+}
+
+function createErrorText(emptyFilterTextSubmitted, moviesNotFound, internalErrorHappened) {
+    if (emptyFilterTextSubmitted) {
+        return 'Нужно ввести ключевое слово'
+    }
+
+    if (moviesNotFound) {
+        return "Ничего не найдено"
+    }
+
+    if (internalErrorHappened) {
+        return "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз."
+    }
+}
+
+function filterMovies(allMovies, onlyShorts, filterText, defaultValue) {
+    if (allMovies == null || filterText.length === 0) {
+        return defaultValue
+    }
+
+    return allMovies.filter(movie => {
+        if (onlyShorts) {
+            return movie.nameRU.toLowerCase().includes(filterText.toLowerCase()) && movie.duration <= 40
+        } else {
+            return movie.nameRU.toLowerCase().includes(filterText.toLowerCase())
+        }
+    })
 }
 
 export default Movies;

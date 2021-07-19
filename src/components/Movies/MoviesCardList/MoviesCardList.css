@@ -15,6 +15,7 @@
     row-gap: 37px;
     margin-bottom: 61px;
     flex-wrap: wrap;
+    padding-left: 0;
 }
 
 .movies-card-list__btn {

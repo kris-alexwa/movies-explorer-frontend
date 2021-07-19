@@ -61,16 +61,16 @@
 }
 
 @media screen and (max-width: 1023px) {
-    .footer__container {
+    /* .footer__container {
         max-width: 708px;
-    }
+    } */
 }
 
 
 @media screen and (max-width: 767px) {
-    .footer__container {
+    /* .footer__container {
         max-width: 300px;
-    }
+    } */
 
     .footer__info-text {
         font-size: 12px;
