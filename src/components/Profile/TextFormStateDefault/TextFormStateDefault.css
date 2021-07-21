@@ -1,0 +1,50 @@
+
+.text-form {
+    width: 100%;
+    margin-top: 123px;
+}
+
+.text-form__container {
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    width: 100%;
+}
+
+.text-form__container_state-default:first-of-type {
+    margin-bottom: 17px;
+}
+
+.text-form__container:first-of-type {
+    border-bottom: solid 1px #E8E8E8;
+    padding-bottom: 16px;
+}
+
+.text-form__title {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.text-form__user-data {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 400;
+}
+
+
+@media screen and (max-width: 1023px) {
+    .text-form {
+        margin-top: 96px;
+    }
+}
+
+@media screen and (max-width: 767px)  {
+    .text-form {
+        margin-top: 80px;
+    }
+
+    .text-form__container {
+        max-width: 260px;
+    }
+}

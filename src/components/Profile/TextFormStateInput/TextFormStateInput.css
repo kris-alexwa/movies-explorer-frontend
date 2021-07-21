@@ -1,0 +1,33 @@
+.text-form__form {
+    display: flex;
+    flex-direction: column;
+}
+
+.text-form__input {
+    border: none;
+    outline: none;
+    text-align: end;
+    color: #000;
+}
+
+.text-form__input::placeholder {
+    color: #000;
+}
+
+.form__btn_save {
+    
+    width: 410px;
+}
+
+.text-form__wrapper {
+    margin-top: 223px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+@media screen and (max-width: 767px) {
+    .form__btn_save {
+        width: 260px;
+    }
+}

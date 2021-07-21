@@ -1,0 +1,139 @@
+.header__burger-menu {
+    
+    width: 44px;
+    height: 44px;
+    display: none;
+    cursor: pointer;
+    transition: opacity 0.5s ease;
+}
+
+.header__burger-menu_light {
+    background-image: url(../../../images/icons/burger-menu-icon-light.svg);
+}
+
+.header__burger-menu_dark {
+    background-image: url(../../../images/icons/burger-menu-icon.svg);
+}
+
+.header__burger-menu:hover {
+    opacity: 0.8;
+}
+
+.header-popup__menu {
+    display: none;
+}
+
+.header-popup {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,.7);
+    z-index: 2;
+    top: 0;
+    right: 0;
+    position: fixed;
+    transition: visibility .3s,opacity .3s linear;
+}
+
+.header-popup__menu {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 520px;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: #fff;
+    top: 0;
+    right: 0;
+    position: fixed;
+}
+
+.header-popup__close-btn {
+    background-image: url(../../../images/icons/close-popup-icon.svg);
+    width: 22px;
+    min-height: 22px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    background-repeat: no-repeat;
+    background-position: center;
+    align-self: flex-end;
+    margin-right: 22px;
+    margin-top: 22px;
+    margin-bottom: 105px;
+    cursor: pointer;
+    transition: opacity 0.5s ease;
+}
+
+.header-popup__close-btn:hover {
+    opacity: 0.8;
+}
+
+.header-popup__link {
+    font-size: 18px;
+    margin-right: auto;
+    margin-left: auto;
+    color: #000;
+}
+
+.header-popup__link:not(:first-of-type) {
+    margin-top: 28px;
+}
+
+.header-popup__link-account {
+    margin: auto auto 90px auto;
+}
+
+.header-popup__visibility {
+    transition: visibility .3s,opacity .3s linear;;
+}
+
+.header-popup__link-desctop_selected {
+    font-weight: 600;
+    margin-right: 20px;
+}
+
+@media screen and (max-width: 1023px) {
+    .header__burger-menu {
+        display: block;
+        border: none;
+        background-color: transparent;
+    }
+
+    .header-popup__visibility {
+        display: block;
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .header-popup__link-account {
+        display: block;
+    }
+
+    .header-popup__link-mobile_selected {
+        display:inline-block;
+        border-bottom: 2px solid black;
+        padding-bottom: 4px;
+        padding-top: 0;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    
+    .header-popup__close-btn {
+        margin-bottom: 99px;
+    }
+
+    .header-popup__menu {
+        width: 100%;
+    }
+
+    .header-popup__link:not(:first-of-type) {
+        margin-top: 24px;
+    }
+
+    .header-popup__link {
+        font-weight: 500;
+    }
+}

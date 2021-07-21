@@ -1,0 +1,68 @@
+.profile {
+    width: 100%;
+    
+}
+
+.profile__container {
+    max-width: 410px;
+    margin: 92px auto 70px auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile__title {
+    font-family: 'Inter Medium', 'Arial', sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    font-style: normal;
+    align-self: center;
+    margin: 0;
+}
+
+.profile__btn {
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    font-size: 13px;
+    font-weight: 400;
+    padding: 0;
+    transition: opacity 0.5s ease;
+}
+
+.profile__btn:hover {
+    opacity: 0.8;
+}
+
+.profile__exit-btn {
+    color: #FF004D;
+    margin-top: 16px;
+}
+
+.profile__edit-btn {
+    margin-top: 220px;
+}
+
+.profile__btn_visibility {
+    display: none;
+}
+
+@media screen and (max-width: 1023px) {
+    .text-form {
+        margin-top: 210px;
+    }
+}
+
+
+@media screen and (max-width: 767px)  {
+    .profile {
+        margin-top: 78px;
+    }
+
+    .profile__btn {
+        font-size: 12px;
+    }
+
+    .text-form {
+        margin-top: 379px;
+    }
+}

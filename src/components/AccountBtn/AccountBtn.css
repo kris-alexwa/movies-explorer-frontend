@@ -1,0 +1,41 @@
+.header__btn-account {
+    background-color: transparent;
+    width: 100px;
+    height: 32px;
+    padding: 0;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: opacity 0.5s ease;
+}
+
+.header__btn-account_dark {
+    border-color: #AAAAAA;
+    color: #000;
+}
+
+.header__btn-account_light {
+    color: #fff;
+    border-color: #fff;
+}
+
+.header__account-icon {
+    margin-right: 7px;
+}
+
+.header__btn-account:hover {
+    opacity: 0.7;
+}
+
+
+@media screen and (max-width: 1023px) {
+    .header__link-account {
+        display: none;
+    }
+    
+    .header__link-account_mobile-menu {
+        display: block;
+        margin: auto auto 90px auto;
+    }
+}
