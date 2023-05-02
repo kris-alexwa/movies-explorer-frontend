@@ -20,5 +20,3 @@ npm install
 npm start
 ```
 Если вы все сделали правильно, то сайт откроет во вкладке браузера по адресу http://localhost:3001/
-
-Сайт всегда доступен по адресу: https://movie-kris.nomoredomains.club/movies
